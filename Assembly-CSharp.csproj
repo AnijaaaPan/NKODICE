@@ -56,17 +56,12 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CartonSpawner_Single.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CigaretteSpawner_Multiple.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\ICPSpawner.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\SelectionHelper.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CartonSpawner_Multiple.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CartonSpawner.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CigaretteSpawner_Single.cs" />
-    <Compile Include="Assets\ImaginaryCigarettesPack\Scripts\CigaretteSpawner.cs" />
+    <Compile Include="Assets\Unity-AnaglyphShader\Assets\Anaglyph.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ImaginaryCigarettesPack\readme.txt" />
+    <None Include="Assets\Materials\shadow.shader" />
+    <None Include="Assets\Unity-AnaglyphShader\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Unity-AnaglyphShader\Assets\Anaglyph.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
