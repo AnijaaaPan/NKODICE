@@ -14,7 +14,7 @@ TagManager:
   - shadow
   - tatami
   - UITop
-  - PostProcessing
+  - TextPostProcessing
   - 
   - 
   - 
