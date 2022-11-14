@@ -15,7 +15,7 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 
 	private string Name;
 	private int NameLength;
-	readonly float SlotChangeInterval = 0.00075f;
+	readonly float SlotChangeInterval = 0.0001f;
 
 	void Start()
     {
@@ -73,7 +73,7 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 
 	private IEnumerator SlotText(TextMeshProUGUI Text)
 	{		
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			string randomText = RandomPassword.Generate(NameLength);
 			Text.SetText(randomText);
