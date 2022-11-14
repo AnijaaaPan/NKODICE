@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 [System.Serializable]
-public class ObjectPair {
+public class ObjectPair
+{
 	public Image Image;
 	public TextMeshProUGUI TextMeshProUGUI;
 }
@@ -18,29 +19,27 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 	public GameObject AutoPlay;
 	public GameObject Quit;
 
-	public RectTransform Title;
+	public GameObject TitleObject;
+	public RectTransform TitleRectTransform;
+	public GameObject OptionObject;
 
 	public ObjectPair ObjectPair;
-	public ObjectPair[] ObjectPairs;
+	public CanvasGroup StartMenuCanvas;
 
 	private float time;
 	readonly float FlashingInterval = 0.0001f;
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		StartCoroutine("ObjectFlashing");
 		if (eventData.button == PointerEventData.InputButton.Left)
 		{
-			if (eventData.pointerEnter == Quit)
-			{
-				QuitGame();
-			}
+			StartCoroutine(ObjectFlashing(eventData.pointerEnter));
 		}
 	}
 
-	private IEnumerator ObjectFlashing()
+	private IEnumerator ObjectFlashing(GameObject Object)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			ObjectPair.TextMeshProUGUI.color = GetAlphaColor(ObjectPair.TextMeshProUGUI.color);
 			ObjectPair.Image.color = ObjectPair.TextMeshProUGUI.color;
@@ -50,19 +49,31 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 		ObjectPair.TextMeshProUGUI.color = new Color(0, 0, 0, 0);
 		ObjectPair.Image.color = ObjectPair.TextMeshProUGUI.color;
 
-		Title.localPosition = new Vector3(0, 0, -10);
+		ZoomIn(-10, 0.9f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -20);
+		ZoomIn(-20, 0.8f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -30);
+		ZoomIn(-30, 0.7f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -40);
+		ZoomIn(-40, 0.6f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -60);
+		ZoomIn(-60, 0.4f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -80);
+		ZoomIn(-80, 0.2f);
 		yield return new WaitForSeconds(FlashingInterval);
-		Title.localPosition = new Vector3(0, 0, -100);
+		ZoomIn(-100, 0.1f);
+		yield return new WaitForSeconds(FlashingInterval);
+		ZoomIn(-150, 0f);
+
+		TitleObject.SetActive(false);
+
+		if (Object == Quit)
+		{
+			QuitGame();
+			yield return null;
+		}
+
+		ObjectFunc(Object);
 	}
 
 	private Color GetAlphaColor(Color color)
@@ -71,6 +82,20 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 		color.a = Mathf.Sin(time) * 0.5f + 0.5f;
 		return color;
 	}
+
+	private void ZoomIn(int positionZ, float colorAlpha)
+	{
+		TitleRectTransform.localPosition = new Vector3(0, 0, positionZ);
+		StartMenuCanvas.alpha = colorAlpha;
+	}
+
+	private void ObjectFunc(GameObject Object)
+    {
+		if (Object == Option)
+		{
+			OptionObject.SetActive(true);
+		}
+    }
 
 	private void QuitGame()
 	{

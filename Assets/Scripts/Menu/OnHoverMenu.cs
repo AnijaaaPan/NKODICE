@@ -25,8 +25,22 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
 	{
+		if (isAlreadyHover(eventData.pointerEnter) == true) return;
+
 		InitMenu();
 		VisibleMenu(eventData.pointerEnter);
+	}
+
+	private bool isAlreadyHover(GameObject Object)
+	{
+		if (isOption == true)
+        {
+			return Object.transform.Find("Text").gameObject.activeSelf;
+		} else
+        {
+			return Object.transform.Find("Button").gameObject.activeSelf;
+		}
+
 	}
 
 	private void InitMenu()
