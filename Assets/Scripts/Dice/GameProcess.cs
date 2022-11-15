@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -29,26 +30,25 @@ public class GameProcess : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     void Start()
     {
+        // Time.timeScale = 0.25f;
         InitSetDice();
+        StartCoroutine("RotateYDice");
     }
 
-    void Update()
+    private IEnumerator RotateYDice()
     {
-        if (IsDroping == false) return;
-        transform.Rotate(new Vector3(0, 30 * Time.deltaTime, 0));
+        while (true)
+        {
+            if (IsDroping == false) yield break;
+
+            transform.Rotate(new Vector3(0, 30 * Time.deltaTime, 0));
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     void InitSetDice()
@@ -87,23 +87,23 @@ public class GameProcess : MonoBehaviour
 
     private float getRandomPower()
     {
-        return Random.Range(-5f, 5f);
+        return Random.Range(-2.5f, 2.5f);
     }
 
     Vector3 InitRandomPos()
     {
-        float DiceSize = 2;
+        float DiceSize = 2.5f;
 
         while (true)
         {
-            var spawnPos = 3f * Random.insideUnitSphere + InitDice.transform.position;
+            Vector3 SpawnPos = 3f * Random.insideUnitSphere + InitDice.transform.position;
 
-            float RandomX = Random.Range(spawnPos.x, spawnPos.x);
-            float RandomY = Random.Range(spawnPos.y, spawnPos.y);
-            float RandomZ = Random.Range(spawnPos.z, spawnPos.z);
+            float RandomX = Random.Range(SpawnPos.x, SpawnPos.x);
+            float RandomY = Random.Range(SpawnPos.y, SpawnPos.y);
+            float RandomZ = Random.Range(SpawnPos.z, SpawnPos.z);
             if (CheckDistinctDice(RandomX, RandomY, RandomZ)) continue;
 
-            PosDice PosDice = new PosDice
+            PosDice PosDice = new()
             {
                 MinX = RandomX - DiceSize,
                 MaxX = RandomX + DiceSize,
@@ -119,8 +119,6 @@ public class GameProcess : MonoBehaviour
 
     private bool CheckDistinctDice(float RandomX, float RandomY, float RandomZ)
     {
-        if (PosDices.Count == 0) return false;
-
         for (int i = 0; i < PosDices.Count; i++)
         {
             PosDice PosDice = PosDices[i];

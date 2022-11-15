@@ -1,20 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class AwakeTitle : MonoBehaviour
 {
     public Image Image;
 
-    private float speed = 1.75f;
     private Color Color = Color.black;
-    private float colorValue = 1;
 
-    void Update()
+    void Start()
     {
-        if (Color.a <= 0.4f) return;
+        StartCoroutine("ChangeColorAlpha");
+    }
 
-        Color.a = colorValue;
-        Image.color = Color;
-        colorValue -= speed * Time.deltaTime;
+    private IEnumerator ChangeColorAlpha()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Color.a -= 0.04f;
+            Image.color = Color;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

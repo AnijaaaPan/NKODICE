@@ -33,7 +33,7 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
             initRightX -= 5000 * Time.deltaTime;
             if (-700 <= initLeftX || initRightX <= 700) return;
 
-                Left.localPosition = new Vector3(initLeftX, 100, 0);
+            Left.localPosition = new Vector3(initLeftX, 100, 0);
             Right.localPosition = new Vector3(initRightX, -100, 0);
         };
 

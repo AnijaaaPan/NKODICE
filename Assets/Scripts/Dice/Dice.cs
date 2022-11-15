@@ -1,15 +1,25 @@
 using UnityEngine;
+using System.Collections;
 
 public class Dice : MonoBehaviour
 {
     public GameObject Bowl;
 
-    private void Update()
+    void Start()
     {
-        if (getDistance() && gameObject.layer != 10)
+        StartCoroutine("ChangeDiceLayer");
+    }
+
+    private IEnumerator ChangeDiceLayer()
+    {
+        while (true)
         {
-            gameObject.layer = 10;
-            GameProcess.instance.RemoveTargetFromCamera(gameObject);
+            if (getDistance()) {
+                gameObject.layer = 10;
+                GameProcess.instance.RemoveTargetFromCamera(gameObject);
+                yield break;
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

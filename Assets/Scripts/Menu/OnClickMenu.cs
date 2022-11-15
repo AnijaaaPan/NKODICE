@@ -78,7 +78,7 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 
 	private Color GetAlphaColor(Color color)
 	{
-		time += Time.deltaTime * 20;
+		time += Time.unscaledDeltaTime * 20;
 		color.a = Mathf.Sin(time) * 0.5f + 0.5f;
 		return color;
 	}
