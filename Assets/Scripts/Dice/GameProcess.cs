@@ -16,11 +16,14 @@ public class GameProcess : MonoBehaviour
 {
     static public GameProcess instance;
 
+    public CameraMultiTarget cameraMultiTarget;
     public GameObject InitDice;
     public MeshCollider DiceMeshCollider;
     public int DiceCount = 5;
 
     public bool IsDroping = true;
+    private List<GameObject> CameraDices = new List<GameObject>();
+
     private readonly List<GameObject> Dices = new List<GameObject>();
     private readonly List<PosDice> PosDices = new List<PosDice>();
 
@@ -78,6 +81,8 @@ public class GameProcess : MonoBehaviour
             DiceObject.transform.SetParent(transform);
             Dices.Add(DiceObject);
         }
+        CameraDices = Dices;
+        cameraMultiTarget.SetTargets(CameraDices.ToArray());
     }
 
     private float getRandomPower()
@@ -125,5 +130,11 @@ public class GameProcess : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void RemoveTargetFromCamera(GameObject TargetObject)
+    {
+        CameraDices.Remove(TargetObject);
+        cameraMultiTarget.SetTargets(CameraDices.ToArray());
     }
 }

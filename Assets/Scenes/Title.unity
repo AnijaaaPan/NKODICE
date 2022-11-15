@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbe07b3d451c2548b61c2b40d8599f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMultiTarget: {fileID: 887332829}
   InitDice: {fileID: 1512764866}
   DiceMeshCollider: {fileID: 1512764867}
   DiceCount: 5
@@ -9212,6 +9213,7 @@ GameObject:
   - component: {fileID: 887332827}
   - component: {fileID: 887332828}
   - component: {fileID: 887332824}
+  - component: {fileID: 887332829}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9313,12 +9315,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887332823}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 212db2f5249f0d54e9a557cf64356a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   filter: {fileID: 2100000, guid: 08e0807c9a2489748ad17339f4f768b9, type: 2}
+--- !u!114 &887332829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887332823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e863d8a08e474307802eaf34f998943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pitch: 30
+  Yaw: 0
+  Roll: 0
+  PaddingLeft: 5
+  PaddingRight: 5
+  PaddingUp: 5
+  PaddingDown: 5
+  MoveSmoothTime: 0.1
 --- !u!1001 &896530993
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlueX: 0.00425
+    - _BlueX: -0.001
     - _BlueY: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -65,13 +65,13 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GreenX: 0.005
+    - _GreenX: 0
     - _GreenY: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RedX: 0.00575
+    - _RedX: 0.001
     - _RedY: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

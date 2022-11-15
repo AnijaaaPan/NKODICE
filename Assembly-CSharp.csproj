@@ -102,10 +102,16 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Option\OnHoverEscapeImage.cs" />
+    <Compile Include="Assets\CameraMultiTarget\Example\ExampleGameController.cs" />
+    <Compile Include="Assets\CameraMultiTarget\Library\CameraMultiTarget.cs" />
+    <Compile Include="Assets\CameraMultiTarget\Library\ProjectionHits.cs" />
+    <Compile Include="Assets\CameraMultiTarget\Example\ExampleTargetBehaviour.cs" />
+    <Compile Include="Assets\CameraMultiTarget\Library\PositionAndRotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\CameraMultiTarget\Example\ProjectorMultiply.shader" />
     <None Include="Assets\Materials\shadow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />

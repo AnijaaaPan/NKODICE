@@ -9,6 +9,7 @@ public class Dice : MonoBehaviour
         if (getDistance() && gameObject.layer != 10)
         {
             gameObject.layer = 10;
+            GameProcess.instance.RemoveTargetFromCamera(gameObject);
         }
     }
 
