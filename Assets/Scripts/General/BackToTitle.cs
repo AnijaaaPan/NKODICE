@@ -31,17 +31,13 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
         {
             initLeftX += 5000 * Time.deltaTime;
             initRightX -= 5000 * Time.deltaTime;
+            if (-700 <= initLeftX || initRightX <= 700) return;
 
-            if (-700 <= initLeftX || initRightX <= 700) {
-                ShutOut = false;
-                SceneManager.LoadSceneAsync("Title");
-            };
-
-            Left.localPosition = new Vector3(initLeftX, 100, 0);
+                Left.localPosition = new Vector3(initLeftX, 100, 0);
             Right.localPosition = new Vector3(initRightX, -100, 0);
         };
 
-        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        if (!Input.GetKeyDown(KeyCode.Escape)) return ;
 
         StartCoroutine("BackScene");
     }
@@ -54,6 +50,18 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
         {
             OptionZoomOut(i * -3, 1 - i * 0.1f);
             yield return new WaitForSeconds(Interval);
+        }
+
+        while(true)
+        {
+            if (-700 <= initLeftX || initRightX <= 700)
+            {
+                yield return new WaitForSeconds(0.25f);
+                ShutOut = false;
+                SceneManager.LoadSceneAsync("Title");
+            };
+
+            yield return new WaitForSeconds(0.01f);
         }
     }
 

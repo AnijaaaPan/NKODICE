@@ -11,12 +11,10 @@ public class AwakeTitle : MonoBehaviour
 
     void Update()
     {
-        if (0 <= colorValue)
-        {
-            Color.a = colorValue;
-            Image.color = Color;
-        }
+        if (Color.a <= 0.4f) return;
 
+        Color.a = colorValue;
+        Image.color = Color;
         colorValue -= speed * Time.deltaTime;
     }
 }
