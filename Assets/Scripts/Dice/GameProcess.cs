@@ -20,13 +20,13 @@ public class GameProcess : MonoBehaviour
     public CameraMultiTarget cameraMultiTarget;
     public GameObject InitDice;
     public MeshCollider DiceMeshCollider;
+    public string Type;
     public int DiceCount = 5;
-
     public bool IsDroping = true;
-    private List<GameObject> CameraDices = new List<GameObject>();
 
-    private readonly List<GameObject> Dices = new List<GameObject>();
-    private readonly List<PosDice> PosDices = new List<PosDice>();
+    private List<PosDice> PosDices = new List<PosDice>();
+    private List<GameObject> CameraDices = new List<GameObject>();
+    private List<GameObject> Dices = new List<GameObject>();
 
     private void Awake()
     {
@@ -51,22 +51,26 @@ public class GameProcess : MonoBehaviour
         }
     }
 
-    void InitSetDice()
+    public void InitSetDice()
     {
         DeleteDices();
         SetDices();
     }
 
-    private void DeleteDices()
+    public void DeleteDices()
     {
         for (int i = 0; i < Dices.Count; i++)
         {
             GameObject DiceObject = Dices[i];
             Destroy(DiceObject);
         }
+
+        PosDices = new List<PosDice>();
+        Dices = new List<GameObject>();
+        cameraMultiTarget.SetTargets(Dices.ToArray());
     }
 
-    private void SetDices()
+    public void SetDices()
     {
         for (int i = 0; i < DiceCount; i++)
         {
@@ -81,13 +85,15 @@ public class GameProcess : MonoBehaviour
             DiceObject.transform.SetParent(transform);
             Dices.Add(DiceObject);
         }
+
         CameraDices = Dices;
         cameraMultiTarget.SetTargets(CameraDices.ToArray());
     }
 
     private float getRandomPower()
     {
-        return Random.Range(-2.5f, 2.5f);
+        float power = Type == "Title" ? 0.5f : 2.5f;
+        return Random.Range(-power, power);
     }
 
     Vector3 InitRandomPos()
@@ -103,7 +109,7 @@ public class GameProcess : MonoBehaviour
             float RandomZ = Random.Range(SpawnPos.z, SpawnPos.z);
             if (CheckDistinctDice(RandomX, RandomY, RandomZ)) continue;
 
-            PosDice PosDice = new()
+            PosDice PosDice = new PosDice()
             {
                 MinX = RandomX - DiceSize,
                 MaxX = RandomX + DiceSize,

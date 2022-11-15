@@ -26,7 +26,14 @@ public class Dice : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != Bowl) return;
-        GameProcess.instance.IsDroping = false;
+
+        if (GameProcess.instance.Type == "Title")
+        {
+            GameProcess.instance.InitSetDice();
+            CameraDice.instance.InitCameraDice();
+        } else {
+            GameProcess.instance.IsDroping = false;
+        }
     }
 
     private bool getDistance()
