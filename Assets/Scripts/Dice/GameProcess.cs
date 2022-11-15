@@ -20,9 +20,9 @@ public class GameProcess : MonoBehaviour
     public MeshCollider DiceMeshCollider;
     public int DiceCount = 5;
 
-    private bool IsDroping = true;
-    private List<GameObject> Dices = new List<GameObject>();
-    private List<PosDice> PosDices = new List<PosDice>();
+    public bool IsDroping = true;
+    private readonly List<GameObject> Dices = new List<GameObject>();
+    private readonly List<PosDice> PosDices = new List<PosDice>();
 
     private void Awake()
     {
@@ -40,6 +40,12 @@ public class GameProcess : MonoBehaviour
     void Start()
     {
         InitSetDice();
+    }
+
+    void Update()
+    {
+        if (IsDroping == false) return;
+        transform.Rotate(new Vector3(0, 30 * Time.deltaTime, 0));
     }
 
     void InitSetDice()
