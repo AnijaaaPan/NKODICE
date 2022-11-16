@@ -1,21 +1,19 @@
-using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class ActiveOption : MonoBehaviour
 {
 	public RectTransform OptionTransform;
 	public CanvasGroup OptionCanvas;
 
-	readonly float Interval = 0.0001f;
-
-	IEnumerator Start()
-    {
-		yield return new WaitForSeconds(0.5f);
+	async void Start()
+	{
+		await Task.Delay(500);
 
 		for (int i = 1; i <= 10; i++)
 		{
 			OptionZoomOut(-30 + i * 3, i * 0.1f);
-			yield return new WaitForSeconds(Interval);
+			await Task.Delay(20);
 		}
 	}
 

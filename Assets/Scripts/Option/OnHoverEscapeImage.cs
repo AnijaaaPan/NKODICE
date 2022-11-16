@@ -9,12 +9,19 @@ public class OnHoverEscapeImage : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		CircleImage.color = new Color(0.75f, 0.75f, 0.75f);
-		EscapeImage.color = new Color(0.75f, 0.75f, 0.75f);
+		int CircleColor = CircleImage == null ? 0 : 1;
+		int EscapeColor = EscapeImage == null ? 0 : 1;
+
+		if (CircleImage) CircleImage.color = new Color(0.75f, 0.75f, 0.75f, CircleColor);
+		if (EscapeImage) EscapeImage.color = new Color(0.75f, 0.75f, 0.75f, EscapeColor);
 	}
+
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		CircleImage.color = new Color(0.25f, 0.25f, 0.25f);
-		EscapeImage.color = new Color(0.25f, 0.25f, 0.25f);
+		int CircleColor = CircleImage == null ? 0 : 1;
+		int EscapeColor = EscapeImage == null ? 0 : 1;
+
+		if (CircleImage) CircleImage.color = new Color(0.25f, 0.25f, 0.25f, CircleColor);
+		if (EscapeImage) EscapeImage.color = new Color(0.25f, 0.25f, 0.25f, EscapeColor);
 	}
 }

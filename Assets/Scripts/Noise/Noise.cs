@@ -1,10 +1,10 @@
 using UnityEngine;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class Noise : MonoBehaviour
 {
     private float MoveY;
-    private float IntervalTime;
+    private int IntervalTime;
 
     private RectTransform RectTransform;
 
@@ -13,16 +13,16 @@ public class Noise : MonoBehaviour
         RectTransform = GetComponent<RectTransform>();
 
         InitMove();
-        StartCoroutine("MoveLineY");
+        MoveLineY();
     }
 
     private void InitMove()
     {
         MoveY = Random.Range(-5f, 5f);
-        IntervalTime = Random.Range(0.01f, 0.1f);
+        IntervalTime = Random.Range(10, 100);
     }
 
-    private IEnumerator MoveLineY()
+    private async void MoveLineY()
     {
         while (true)
         {
@@ -35,7 +35,7 @@ public class Noise : MonoBehaviour
 
             PosY += MoveY;
             RectTransform.localPosition = new Vector3(0, PosY, 0);
-            yield return new WaitForSeconds(IntervalTime);
+            await Task.Delay(IntervalTime);
         }
     }
 

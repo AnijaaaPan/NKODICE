@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class ObjectPair
@@ -27,42 +27,41 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 	public CanvasGroup StartMenuCanvas;
 
 	private float time;
-	readonly float FlashingInterval = 0.0001f;
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		if (eventData.button == PointerEventData.InputButton.Left)
 		{
-			StartCoroutine(ObjectFlashing(eventData.pointerEnter));
+			ObjectFlashing(eventData.pointerEnter);
 		}
 	}
 
-	private IEnumerator ObjectFlashing(GameObject Object)
+	private async void ObjectFlashing(GameObject Object)
 	{
 		for (int i = 0; i < 20; i++)
 		{
 			ObjectPair.TextMeshProUGUI.color = GetAlphaColor(ObjectPair.TextMeshProUGUI.color);
 			ObjectPair.Image.color = ObjectPair.TextMeshProUGUI.color;
-			yield return new WaitForSeconds(FlashingInterval);
+			await Task.Delay(6);
 		}
 
 		ObjectPair.TextMeshProUGUI.color = new Color(0, 0, 0, 0);
 		ObjectPair.Image.color = ObjectPair.TextMeshProUGUI.color;
 
 		ZoomIn(-10, 0.9f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-20, 0.8f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-30, 0.7f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-40, 0.6f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-60, 0.4f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-80, 0.2f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-100, 0.1f);
-		yield return new WaitForSeconds(FlashingInterval);
+		await Task.Delay(10);
 		ZoomIn(-150, 0f);
 
 		TitleObject.SetActive(false);
@@ -70,7 +69,7 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 		if (Object == Quit)
 		{
 			QuitGame();
-			yield return null;
+			return;
 		}
 
 		ObjectFunc(Object);

@@ -1,6 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class PosDice
@@ -28,8 +28,6 @@ public class GameProcess : MonoBehaviour
     private List<GameObject> CameraDices = new List<GameObject>();
     private List<GameObject> Dices = new List<GameObject>();
 
-    readonly float Interval = 0.0001f;
-
     private void Awake()
     {
         if (instance == null)
@@ -42,17 +40,17 @@ public class GameProcess : MonoBehaviour
     {
         // Time.timeScale = 0.25f;
         InitSetDice();
-        StartCoroutine("RotateYDice");
+        RotateYDice();
     }
 
-    private IEnumerator RotateYDice()
+    private async void RotateYDice()
     {
         while (true)
         {
-            if (IsDroping == false) yield break;
+            if (IsDroping == false) break;
 
             transform.Rotate(new Vector3(0, 30 * Time.deltaTime, 0));
-            yield return new WaitForSeconds(0.1f);
+            await Task.Delay(100);
         }
     }
 

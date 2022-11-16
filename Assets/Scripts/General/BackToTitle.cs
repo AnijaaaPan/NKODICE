@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class BackToTitle : MonoBehaviour, IPointerClickHandler
 {
@@ -15,13 +15,11 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
     private float initLeftX = -2300;
     private float initRightX = 2300;
 
-    readonly float Interval = 0.0001f;
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            StartCoroutine("BackScene");
+            BackScene();
         }
     }
 
@@ -39,29 +37,30 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
 
         if (!Input.GetKeyDown(KeyCode.Escape)) return ;
 
-        StartCoroutine("BackScene");
+        BackScene();
     }
 
-    private IEnumerator BackScene()
+    private async void BackScene()
     {
         ShutOut = true;
 
         for (int i = 1; i <= 10; i++)
         {
             OptionZoomOut(i * -3, 1 - i * 0.1f);
-            yield return new WaitForSeconds(Interval);
+            await Task.Delay(20);
         }
 
         while(true)
         {
-            if (-700 <= initLeftX || initRightX <= 700)
+            if (-725 <= initLeftX || initRightX <= 725)
             {
-                yield return new WaitForSeconds(0.25f);
+                await Task.Delay(250);
                 ShutOut = false;
                 SceneManager.LoadSceneAsync("Title");
+                break;
             };
 
-            yield return new WaitForSeconds(0.01f);
+            await Task.Delay(10);
         }
     }
 

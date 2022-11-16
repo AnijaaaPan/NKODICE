@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class CameraDice : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class CameraDice : MonoBehaviour
     private int MoveRoll = 0; // 0: âΩÇ‡Ç»Çµ, 1: éûåvâÒÇË, 2: îΩéûåvâÒÇË
     private int MovePadding = 0; // 0: âΩÇ‡Ç»Çµ, 1: ägëÂ, 2: èkè¨
 
-    private readonly float PitchMin = 0f;
+    private readonly float PitchMin = 10f;
     private readonly float PitchMax = 30f;
     private readonly float RollMin = 0f;
     private readonly float RollMax = 360f;
@@ -26,15 +26,16 @@ public class CameraDice : MonoBehaviour
     private float DiffRoll = 0;
     private float DiffPadding = 0;
 
-    private float IntervalTime = 0.05f;
+    private readonly int IntervalTime = 50;
 
     private void Awake()
     {
         instance = this;
     }
 
-    IEnumerator Start()
+    async void Start()
     {
+        InitCamera();
         InitCameraDice();
 
         while (true)
@@ -42,8 +43,19 @@ public class CameraDice : MonoBehaviour
             UpdatePitch();
             UpdateRoll();
             UpdatePadding();
-            yield return new WaitForSeconds(IntervalTime);
+            await Task.Delay(IntervalTime);
         }
+    }
+    
+    public void InitCamera()
+    {
+        cameraMultiTarget.Pitch = 0;
+        cameraMultiTarget.Roll = 0;
+        cameraMultiTarget.Yaw = 0;
+        cameraMultiTarget.PaddingDown = 0;
+        cameraMultiTarget.PaddingLeft = 0;
+        cameraMultiTarget.PaddingRight = 0;
+        cameraMultiTarget.PaddingUp = 0;
     }
 
     public void InitCameraDice()

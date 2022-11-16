@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class Dice : MonoBehaviour
 {
@@ -7,19 +7,20 @@ public class Dice : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("ChangeDiceLayer");
+        ChangeDiceLayer();
     }
 
-    private IEnumerator ChangeDiceLayer()
+    private async void ChangeDiceLayer()
     {
         while (true)
         {
-            if (getDistance()) {
+            if (IsGetDistance()) {
                 gameObject.layer = 10;
                 GameProcess.instance.RemoveTargetFromCamera(gameObject);
-                yield break;
+                break;
             }
-            yield return new WaitForSeconds(0.1f);
+
+            await Task.Delay(100);
         }
     }
 
@@ -36,7 +37,7 @@ public class Dice : MonoBehaviour
         }
     }
 
-    private bool getDistance()
+    private bool IsGetDistance()
     {
         Vector2 BowlPos = new Vector2(Bowl.transform.position.x, Bowl.transform.position.z);
         Vector2 DicePos = new Vector2(transform.position.x, transform.position.z);

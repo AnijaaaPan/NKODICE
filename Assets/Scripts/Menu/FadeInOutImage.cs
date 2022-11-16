@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class FadeInOutImage : MonoBehaviour
 {
@@ -17,20 +17,19 @@ public class FadeInOutImage : MonoBehaviour
         }
     }
 
-    void Start()
+    async void Start()
     {
-        StartCoroutine(FadeInOut(true, 0.005f));
+        await FadeInOut(true, 0.005f, 20);
     }
 
-
-    public IEnumerator FadeInOut(bool IsIn, float ChangeValue)
+    public async Task FadeInOut(bool IsIn, float ChangeValue, int Delay)
     {
         for (int i = 0; i < 20; i++)
         {
             Color.a += IsIn == true ? -ChangeValue : ChangeValue;
             Image.color = Color;
-            yield return new WaitForSeconds(0.025f);
+
+            await Task.Delay(Delay);
         }
-        yield break;
     }
 }

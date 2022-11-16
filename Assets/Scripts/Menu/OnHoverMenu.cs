@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 {
@@ -15,7 +15,6 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 
 	private string Name;
 	private int NameLength;
-	readonly float SlotChangeInterval = 0.0001f;
 
 	void Start()
     {
@@ -40,7 +39,6 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
         {
 			return Object.transform.Find("Button").gameObject.activeSelf;
 		}
-
 	}
 
 	private void InitMenu()
@@ -70,7 +68,7 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 			SelectObject.SetActive(true);
 
 			SelectText = SelectObject.GetComponent<TextMeshProUGUI>();
-			StartCoroutine(SlotText(SelectText));
+			SlotText(SelectText);
 			return;
         }
 
@@ -82,16 +80,16 @@ public class OnHoverMenu : MonoBehaviour, IPointerEnterHandler
 		GameObject TextObject = SelectObject.transform.Find("Text").gameObject;
 
 		SelectText = TextObject.GetComponent<TextMeshProUGUI>();
-		StartCoroutine(SlotText(SelectText));
+		SlotText(SelectText);
 	}
 
-	private IEnumerator SlotText(TextMeshProUGUI Text)
+	private async void SlotText(TextMeshProUGUI Text)
 	{		
 		for (int i = 0; i < 5; i++)
 		{
 			string randomText = RandomPassword.Generate(NameLength);
 			Text.SetText(randomText);
-			yield return new WaitForSeconds(SlotChangeInterval);
+			await Task.Delay(20);
 		}
 
 		Text.SetText(Name);

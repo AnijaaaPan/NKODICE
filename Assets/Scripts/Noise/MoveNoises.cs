@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Threading.Tasks;
 
 public class MoveNoises : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public class MoveNoises : MonoBehaviour
         for (int i = 1; i <= NoiseCount; i++)
         {
             GameObject NoiseObject = transform.GetChild(i).gameObject;
-            StartCoroutine(PopNoise(NoiseObject));
+            PopNoise(NoiseObject);
         }
     }
 
@@ -47,21 +47,22 @@ public class MoveNoises : MonoBehaviour
         return Random.Range(-540f, 540f);
     }
 
-    private IEnumerator PopNoise(GameObject NoiseObject)
+    private async void PopNoise(GameObject NoiseObject)
     {
         LineRenderer LineRenderer = NoiseObject.GetComponent<LineRenderer>();
-        float RandomIntervalTime = Random.Range(0.01f, 0.025f);
+        int RandomIntervalTime = Random.Range(10, 25);
         float RandomColorAlpha = Random.Range(0.1f, 0.2f);
 
         float[] ColorAlphaList = new float[11] { 
             0, RandomColorAlpha * 1, RandomColorAlpha * 2, RandomColorAlpha * 3, RandomColorAlpha * 4, RandomColorAlpha * 5,
                RandomColorAlpha * 4, RandomColorAlpha * 3, RandomColorAlpha * 2, RandomColorAlpha * 1, 0
         };
+
         for (int i = 0; i < ColorAlphaList.Length; i++)
         {
             float ColorAlpha = ColorAlphaList[i];
             LineRenderer.colorGradient = CreateColor(ColorAlpha);
-            yield return new WaitForSeconds(RandomIntervalTime);
+            await Task.Delay(RandomIntervalTime);
         }
     }
 

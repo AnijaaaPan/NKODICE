@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class CameraBowl : MonoBehaviour
 {
@@ -11,12 +11,12 @@ public class CameraBowl : MonoBehaviour
     private int MoveYaw = 0; // 0: âΩÇ‡Ç»Çµ, 1: éûåvâÒÇË, 2: îΩéûåvâÒÇË
     private int MovePadding = 0; // 0: âΩÇ‡Ç»Çµ, 1: ägëÂ, 2: èkè¨
 
-    private readonly float PitchMin = 0f;
-    private readonly float PitchMax = 90f;
+    private readonly float PitchMin = 20f;
+    private readonly float PitchMax = 85f;
     private readonly float YawMin = 0f;
     private readonly float YawMax = 360f;
-    private readonly float PaddingMin = 1f;
-    private readonly float PaddingMax = 5f;
+    private readonly float PaddingMin = 7.55f;
+    private readonly float PaddingMax = 20f;
 
     private float InitPitch = 0;
     private float InitYaw = 0;
@@ -26,23 +26,33 @@ public class CameraBowl : MonoBehaviour
     private float DiffYaw = 0;
     private float DiffPadding = 0;
 
-    private float IntervalTime = 0.01f;
+    private readonly int IntervalTime = 10;
+
+    private int InitCount = 0;
+    private int RandomCount = 0;
 
     private void Awake()
     {
         instance = this;
     }
 
-    IEnumerator Start()
+    async void Start()
     {
         InitCameraBowl();
 
         while (true)
         {
+            if (InitCount % RandomCount == 0)
+            {
+                InitCameraBowl();
+            }
+
             UpdatePitch();
             UpdateYaw();
             UpdatePadding();
-            yield return new WaitForSeconds(IntervalTime);
+
+            InitCount++;
+            await Task.Delay(IntervalTime);
         }
     }
 
@@ -63,9 +73,12 @@ public class CameraBowl : MonoBehaviour
         cameraMultiTarget.PaddingRight = InitPadding;
         cameraMultiTarget.PaddingUp = InitPadding;
 
-        DiffPitch = Random.Range(0f, 0.12f);
-        DiffYaw = Random.Range(0f, 0.1f);
-        DiffPadding = Random.Range(0f, 0.025f);
+        DiffPitch = Random.Range(0f, 0.25f);
+        DiffYaw = Random.Range(0f, 0.75f);
+        DiffPadding = Random.Range(0f, 0.05f);
+
+        InitCount = 0;
+        RandomCount = Random.Range(250, 500);
     }
 
     private int RandomChoiceType()
