@@ -15,8 +15,8 @@ public class CameraDice : MonoBehaviour
     private readonly float PitchMax = 30f;
     private readonly float RollMin = 0f;
     private readonly float RollMax = 360f;
-    private readonly float PaddingMin = 0.5f;
-    private readonly float PaddingMax = 2.5f;
+    private readonly float PaddingMin = 1f;
+    private readonly float PaddingMax = 2f;
 
     private float InitPitch = 0;
     private float InitRoll = 0;
@@ -26,7 +26,7 @@ public class CameraDice : MonoBehaviour
     private float DiffRoll = 0;
     private float DiffPadding = 0;
 
-    private float IntervalTime = 0.01f;
+    private float IntervalTime = 0.05f;
 
     private void Awake()
     {
@@ -65,7 +65,7 @@ public class CameraDice : MonoBehaviour
 
         DiffPitch = Random.Range(0f, 0.06f);
         DiffRoll = Random.Range(0f, 0.05f);
-        DiffPadding = Random.Range(0f, 0.005f);
+        DiffPadding = Random.Range(0f, 0.025f);
     }
 
     private int RandomChoiceType()

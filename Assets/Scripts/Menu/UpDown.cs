@@ -4,7 +4,7 @@ public class UpDown : MonoBehaviour
 {
     readonly float speed = 0.5f;
     readonly float height = 1.5f;
-    readonly float rotate = 0.05f;
+    readonly float rotate = 0.1f;
 
     RectTransform UpDownRectTransform;
 

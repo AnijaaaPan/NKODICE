@@ -27,7 +27,7 @@ public class Dice : MonoBehaviour
     {
         if (collision.gameObject != Bowl) return;
 
-        if (GameProcess.instance.Type == "Title")
+        if (GameProcess.instance.Type == 0)
         {
             GameProcess.instance.InitSetDice();
             CameraDice.instance.InitCameraDice();

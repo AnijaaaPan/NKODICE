@@ -20,7 +20,7 @@ public class GameProcess : MonoBehaviour
     public CameraMultiTarget cameraMultiTarget;
     public GameObject InitDice;
     public MeshCollider DiceMeshCollider;
-    public string Type;
+    public int Type = 0;
     public int DiceCount = 5;
     public bool IsDroping = true;
 
@@ -28,9 +28,14 @@ public class GameProcess : MonoBehaviour
     private List<GameObject> CameraDices = new List<GameObject>();
     private List<GameObject> Dices = new List<GameObject>();
 
+    readonly float Interval = 0.0001f;
+
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     void Start()
@@ -92,7 +97,7 @@ public class GameProcess : MonoBehaviour
 
     private float getRandomPower()
     {
-        float power = Type == "Title" ? 0.5f : 2.5f;
+        float power = Type == 0 ? 0.5f : 2.5f;
         return Random.Range(-power, power);
     }
 

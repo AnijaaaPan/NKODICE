@@ -94,8 +94,22 @@ public class OnClickMenu : MonoBehaviour, IPointerClickHandler
 		if (Object == Option)
 		{
 			OptionObject.SetActive(true);
+			return;
 		}
-    }
+
+		TitleObject.SetActive(false);
+		if (Object == Arcade)
+		{
+			GameStart.instance.InitGame(1);
+		}
+		else if (Object == FreeRole)
+		{
+			GameStart.instance.InitGame(2);
+		} else
+		{
+			GameStart.instance.InitGame(3);
+		}
+	}
 
 	private void QuitGame()
 	{
