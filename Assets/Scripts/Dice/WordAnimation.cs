@@ -28,6 +28,8 @@ public class WordAnimation : MonoBehaviour
     private TextMeshProUGUI UnkoText;
     private TextMeshProUGUI UnchiText;
 
+    private bool IsFirstrole = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -66,7 +68,6 @@ public class WordAnimation : MonoBehaviour
 
         RoundDiceInfo LatestRoundInfo = RoundDiceInfos[0];
 
-        await Task.Delay(100);
         MoveNoises.instance.VisibleAllNoise();
         if (LatestRoundInfo.DiceRole.Unchi) await AnimationText(UnchiObject, UnchiText, LatestRoundInfo.CountRoleCombo.Unchi);
         if (LatestRoundInfo.DiceRole.Unko) await AnimationText(UnkoObject, UnkoText, LatestRoundInfo.CountRoleCombo.Unko);
@@ -78,6 +79,7 @@ public class WordAnimation : MonoBehaviour
         MoveNoises.instance.VisibleAllNoise(false);
 
         GameStart.instance.WaitType = 5;
+        Sound.instance.SoundHyoushigi();
     }
 
     private async Task IsOchinchinAnime(TextMeshProUGUI TextMeshProUGUI)
@@ -105,13 +107,13 @@ public class WordAnimation : MonoBehaviour
     private async Task ComboZoomOut(TextMeshProUGUI TextMeshProUGUI, int Combo, bool IsOchinchin = false)
     {
         bool IsChange = false;
-        IsCombo.SetActive(Combo != 0);
+        IsCombo.SetActive(Combo < 1);
         if (IsOchinchin == false)
         {
-            IsComboButton.SetActive(Combo != 0);
+            IsComboButton.SetActive(Combo < 1);
         }
 
-        TextMeshProUGUI.color = Combo != 0 ? Color.black : Color.white;
+        TextMeshProUGUI.color = Combo < 1 ? Color.black : Color.white;
         TextMeshProUGUI.fontSize = 600;
 
         string ComboText = $"COMBO {Combo}";
@@ -133,10 +135,21 @@ public class WordAnimation : MonoBehaviour
     public async Task AnimationText(GameObject AnimeObject, TextMeshProUGUI Text, int Combo, bool IsOchinchin=false)
     {
         AnimeObject.SetActive(true);
+        if (IsFirstrole == true)
+        {
+            IsFirstrole = false;
+            GameStart.instance.UpdateRemainRollCount(1);
+        }
 
+        GameStart.instance.DiceCount++;
+        GameStart.instance.UpdateRemainNudgeCount(1);
         if (IsOchinchin == true)
         {
             await IsOchinchinAnime(Text);
+            Sound.instance.SoundOchinchin();
+        } else
+        {
+            Sound.instance.SoundIyoh();
         }
 
         MoveNoises.instance.VisibleAllNoise(true);

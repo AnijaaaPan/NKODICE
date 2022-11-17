@@ -20,8 +20,6 @@ public class GameProcess : MonoBehaviour
     public CameraMultiTarget cameraMultiTarget;
     public GameObject InitDice;
     public MeshCollider DiceMeshCollider;
-    public int Type = 0;
-    public int DiceCount = 5;
     public bool IsDroping = true;
 
     public List<GameObject> IsSleepingDices = new List<GameObject>();
@@ -70,20 +68,20 @@ public class GameProcess : MonoBehaviour
 
     public void DeleteDices()
     {
-        for (int i = 0; i < Dices.Count; i++)
+        foreach (Transform t in transform)
         {
-            GameObject DiceObject = Dices[i];
-            Destroy(DiceObject);
+            Destroy(t.gameObject);
         }
 
         PosDices = new List<PosDice>();
         Dices = new List<GameObject>();
+        OnBowlDices = new List<GameObject>();
         InitSetCameraObject(Dices.ToArray());
     }
 
     public void SetDices()
     {
-        for (int i = 0; i < DiceCount; i++)
+        for (int i = 0; i < GameStart.instance.DiceCount; i++)
         {
             Vector3 InitPos = InitRandomPos();
             Quaternion InitQ = Quaternion.Euler(0, 0, Random.Range(-180f, 180f));
@@ -91,7 +89,7 @@ public class GameProcess : MonoBehaviour
             GameObject DiceObject = Instantiate(InitDice, InitPos, InitQ);
             DiceObject.name = $"Dice{i}";
             Rigidbody Rigidbody = DiceObject.GetComponent<Rigidbody>();
-            if (Type != 0) Rigidbody.drag = 0;
+            if (GameStart.instance.WaitType != 0) Rigidbody.drag = 0;
             Rigidbody.angularVelocity = new Vector3(getRandomPower(), getRandomPower(), getRandomPower());
             Rigidbody.AddForce(new Vector3(0, -15, 0), ForceMode.Impulse);
 
@@ -106,7 +104,7 @@ public class GameProcess : MonoBehaviour
 
     private float getRandomPower()
     {
-        float power = Type == 0 ? 0.5f : 2f;
+        float power = GameStart.instance.WaitType == 0 ? 0.5f : 2f;
         return Random.Range(-power, power);
     }
 

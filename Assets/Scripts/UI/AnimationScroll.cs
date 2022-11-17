@@ -33,7 +33,7 @@ public class AnimationScroll : MonoBehaviour
             while (true)
             {
                 if (ScrollImage == null || this == null) break;
-                if (ScrollImage.localPosition.y <= 175) break;
+                if (ScrollImage.localPosition.y >= 175) break;
 
                 InitValue += 7;
                 if (ScrollImage != null) ScrollImage.localPosition = new Vector3(0, InitValue, 0);

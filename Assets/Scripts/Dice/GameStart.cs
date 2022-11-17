@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GameStart : MonoBehaviour
     public Rigidbody BowlRigidbody;
 
     public CanvasGroup BowlCanvasGroup;
+    public CanvasGroup NextRoundCanvasGroup;
+    public CanvasGroup GameResultCanvasGroup;
+    public CanvasGroup BackToTitleCanvasGroup;
     public TextMeshProUGUI RollText;
     public TextMeshProUGUI DiceCountText;
     public TextMeshProUGUI RemainRollText;
@@ -25,12 +29,15 @@ public class GameStart : MonoBehaviour
     public CameraBowl CameraBowl;
 
     public int Round = 1;
+    public int DiceCount = 5;
     public int WaitType = 0; // 0: 最初のアニメーション中, 1: クリック待機中, 2: サイコロ落下中, 3: サイコロ落下後のNUDGE受付時間, 4: 役などを確認, 4: ゲームを次に進める
+    public int RemainRound = 3;
     public int RemainNudge = 5;
     public bool IsClick = false;
 
-    private int RemainRound = 3;
+    public int GameType;
     private float time;
+    private float NextRoundTime;
     private bool IsFirst = false;
     private bool IsNudgeClick = false;
 
@@ -42,11 +49,12 @@ public class GameStart : MonoBehaviour
         }
     }
 
-    private void Update()
+    private async void Update()
     {
         if (WaitType == 0 || IsClick == true) return;
 
-        if (WaitType == 1 && Input.GetMouseButton(0)) {
+        if (WaitType == 1 && Input.GetMouseButton(0))
+        {
             Sound.instance.UpdateBGM(true);
             UpdateRemainRollCount(0);
             WaitType = 2;
@@ -66,12 +74,54 @@ public class GameStart : MonoBehaviour
             IsNudgeClick = true;
             GameProcess.instance.IsSleepingDices = new List<GameObject>();
             GameProcess.instance.AllDiceSleep = 0;
+            Sound.instance.SoundNudge();
             UpdateRemainNudgeCount(0);
         }
 
         if (WaitType == 3 && IsNudgeClick == true && Input.GetMouseButtonUp(1))
         {
             IsNudgeClick = false;
+        }
+
+        if (WaitType == 5)
+        {
+            NextRoundTime += Time.unscaledDeltaTime * 3.5f;
+            NextRoundCanvasGroup.alpha = Mathf.Sin(NextRoundTime) + 1f;
+
+            if (RemainRound != 0 && Input.GetMouseButton(0))
+            {
+                WaitType = 0;
+                NextRoundCanvasGroup.alpha = 0;
+                await FadeInOutImage.instance.FadeInOut(false, 0.055f, 10);
+                InitGame(GameType, true);
+            }
+            else if (RemainRound == 0 && Input.GetMouseButton(0))
+            {
+                IsClick = true;
+                WaitType = 6;
+                InGameUIObject.SetActive(false);
+
+                await FadeInOutImage.instance.FadeInOut(false, 0.055f, 10);
+                for (int i = 1; i <= 100; i++)
+                {
+                    GameResultCanvasGroup.alpha = i * 0.01f;
+                    await Task.Delay(10);
+                }
+                RemainRollText.alpha = 1;
+                IsClick = false;
+            }
+        }
+
+
+        if (WaitType == 6)
+        {
+            NextRoundTime += Time.unscaledDeltaTime * 3.5f;
+            BackToTitleCanvasGroup.alpha = Mathf.Sin(NextRoundTime) + 1f;
+            if (Input.GetMouseButton(0))
+            {
+                SceneManager.LoadSceneAsync("Title");
+            }
+            SceneManager.LoadSceneAsync("Title");
         }
     }
 
@@ -87,12 +137,28 @@ public class GameStart : MonoBehaviour
         }
     }
 
-    public async void InitGame(int GameType)
+    public async void InitGame(int Type, bool IsNextRound=false)
     {
+        if (IsNextRound == true)
+        {
+            Round++;
+            GameProcess.instance.IsDroping = true;
+            GameProcess.instance.DeleteDices();
+            GameProcess.instance.IsSleepingDices = new List<GameObject>();
+            GameScore.instance.DiceValues = new List<DiceValue>();
+            ScaneDice.instance.IsScaning = false;
+            GameProcess.instance.AllDiceSleep = 0;
+            IsClick = false;
+            time = 0;
+            NextRoundTime = 0;
+            IsFirst = false;
+            IsNudgeClick = false;
+        }
+
         Sound.instance.UpdateBGM(false);
+        GameType = Type;
         TitleObjects[GameType - 1].SetActive(true);
         await FadeInOutImage.instance.FadeInOut(false, 0.005f, 25);
-        GameProcess.instance.Type = GameType;
         GameProcess.instance.DeleteDices();
 
         CameraDice.enabled = false;
@@ -108,16 +174,14 @@ public class GameStart : MonoBehaviour
 
     private async void UpdateBowlCanvas()
     {
-        await Task.Delay(1000);
-
-        string DiceText = $"{GameProcess.instance.DiceCount} DICE";
-        for (int i = 1; i <= 10; i++)
+        string DiceText = $"{DiceCount} DICE";
+        for (int i = 1; i <= 15; i++)
         {
             BowlCanvasGroup.alpha = i * 0.1f;
 
             string randomText = RandomPassword.Generate(DiceText.Length);
             DiceCountText.text = randomText;
-            await Task.Delay(30);
+            await Task.Delay(20);
         }
 
         DiceCountText.text = DiceText;
@@ -149,12 +213,13 @@ public class GameStart : MonoBehaviour
         return Mathf.Sin(time) * 0.5f + 0.5f;
     }
 
-    private async void UpdateRemainRollCount(int UpdateType=0)
+    public async void UpdateRemainRollCount(int UpdateType=0)
     {
+        RemainRollText.text = RemainRound.ToString();
+
         if (UpdateType == 0)
         {
             RemainRound -= 1;
-            RemainRollText.text = RemainRound.ToString();
             for (int i = 1; i <= 10; i++)
             {
                 RemainRollText.alpha = i % 2 == 0 ? 1 : 0;
@@ -165,29 +230,28 @@ public class GameStart : MonoBehaviour
         } else if (UpdateType == 1) {
             RemainRound += 1;
             RemainRollText.text = "+1";
-
-        } else
-        {
-            RemainRollText.text = RemainRound.ToString();
+            await Task.Delay(500);
         }
+
+        RemainRollText.text = RemainRound.ToString();
     }
 
-    private void UpdateRemainNudgeCount(int UpdateType = 0)
+    public async void UpdateRemainNudgeCount(int UpdateType = 0)
     {
+        RemainNudgeText.text = $"NUDGE   {RemainNudge}";
+
         if (UpdateType == 0)
         {
             RemainNudge -= 1;
-            RemainNudgeText.text = $"NUDGE   {RemainNudge}";
         }
         else if (UpdateType == 1)
         {
             RemainNudge += 1;
             RemainNudgeText.text = "NUDGE   +1";
+            await Task.Delay(500);
         }
-        else
-        {
-            RemainNudgeText.text = $"NUDGE   {RemainNudge}";
-        }
+
+        RemainNudgeText.text = $"NUDGE   {RemainNudge}";
 
         float ColorValue = RemainNudge == 0 ? 0.25f : 1;
         RemainNudgeText.color = new Color(ColorValue, ColorValue, ColorValue);

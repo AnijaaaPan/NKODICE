@@ -118,19 +118,19 @@ public class GameScore : MonoBehaviour
         DiceRole.Chinchin = IsChinchin;
         CountRoleCombo.Chinchin = IsChinchin == true ? CountRoleCombo.Chinchin + 1 : 0;
 
-        bool IsChinko = CountDiceWord.C >= 2 && CountDiceWord.N >= 2;
+        bool IsChinko = CountDiceWord.C >= 1 && CountDiceWord.N >= 1 && CountDiceWord.K >= 1;
         DiceRole.Chinko = IsChinko;
         CountRoleCombo.Chinko = IsChinko == true ? CountRoleCombo.Chinko + 1 : 0;
 
-        bool IsManko = CountDiceWord.C >= 2 && CountDiceWord.N >= 2;
+        bool IsManko = CountDiceWord.M >= 1 && CountDiceWord.N >= 1 && CountDiceWord.K >= 1;
         DiceRole.Manko = IsManko;
         CountRoleCombo.Manko = IsManko == true ? CountRoleCombo.Manko + 1 : 0;
 
-        bool IsUnko = CountDiceWord.C >= 2 && CountDiceWord.N >= 2;
+        bool IsUnko = CountDiceWord.U >= 1 && CountDiceWord.N >= 1 && CountDiceWord.K >= 1;
         DiceRole.Unko = IsUnko;
         CountRoleCombo.Unko = IsUnko == true ? CountRoleCombo.Unko + 1 : 0;
 
-        bool IsUnchi = CountDiceWord.C >= 2 && CountDiceWord.N >= 2;
+        bool IsUnchi = CountDiceWord.U >= 1 && CountDiceWord.N >= 1 && CountDiceWord.C >= 1;
         DiceRole.Unchi = IsUnchi;
         CountRoleCombo.Unchi = IsUnchi == true ? CountRoleCombo.Unchi + 1 : 0;
 

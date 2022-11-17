@@ -34,7 +34,7 @@ public class Dice : MonoBehaviour
         if (collision.gameObject != Bowl) return;
         Sound.instance.SoundHitToBowl();
 
-        if (GameProcess.instance.Type == 0) {
+        if (GameStart.instance.GameType == 0) {
             GameProcess.instance.InitSetDice();
             CameraDice.instance.InitCameraDice();
 
