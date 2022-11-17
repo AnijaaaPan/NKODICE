@@ -26,6 +26,7 @@ public class ClickGameSpeed : MonoBehaviour, IPointerClickHandler
 
             EnableDisableText(PlayerData.Speed, true);
             PlayerData.Speed = Type;
+            UpdateTimeScale();
             EnableDisableText(Type);
 
             Json.instance.Save(PlayerData);
@@ -38,5 +39,29 @@ public class ClickGameSpeed : MonoBehaviour, IPointerClickHandler
 
         TextMeshProUGUI Text = TextMeshProUGUIs[index - 1];
         Text.color = new Color(ColorValue, ColorValue, ColorValue);
+    }
+
+    private void UpdateTimeScale()
+    {
+        if (Type == 1)
+        {
+            Time.timeScale = 0.5f;
+        }
+        else if (Type == 2)
+        {
+            Time.timeScale = 0.75f;
+        }
+        else if (Type == 3)
+        {
+            Time.timeScale = 1f;
+        }
+        else if (Type == 4)
+        {
+            Time.timeScale = 1.25f;
+        }
+        else
+        {
+            Time.timeScale = 1.5f;
+        }
     }
 }

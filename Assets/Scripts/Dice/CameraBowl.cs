@@ -15,8 +15,9 @@ public class CameraBowl : MonoBehaviour
     private readonly float PitchMax = 85f;
     private readonly float YawMin = 0f;
     private readonly float YawMax = 360f;
-    private readonly float PaddingMin = 7.55f;
-    private readonly float PaddingMax = 20f;
+    private float PaddingMin = 7.55f;
+    private float PaddingMax = 20f;
+    private float DiffPaddingMax = 0.05f;
 
     private float InitPitch = 0;
     private float InitYaw = 0;
@@ -42,6 +43,8 @@ public class CameraBowl : MonoBehaviour
 
         while (true)
         {
+            if (cameraMultiTarget == null) return;
+
             if (InitCount % RandomCount == 0)
             {
                 InitCameraBowl();
@@ -67,6 +70,7 @@ public class CameraBowl : MonoBehaviour
         InitPadding = Random.Range(PaddingMin, PaddingMax);
 
         cameraMultiTarget.Pitch = InitPitch;
+        cameraMultiTarget.Roll = 0;
         cameraMultiTarget.Yaw = InitYaw;
         cameraMultiTarget.PaddingDown = InitPadding;
         cameraMultiTarget.PaddingLeft = InitPadding;
@@ -75,7 +79,7 @@ public class CameraBowl : MonoBehaviour
 
         DiffPitch = Random.Range(0f, 0.25f);
         DiffYaw = Random.Range(0f, 0.75f);
-        DiffPadding = Random.Range(0f, 0.05f);
+        DiffPadding = Random.Range(0f, DiffPaddingMax);
 
         InitCount = 0;
         RandomCount = Random.Range(250, 500);
@@ -120,5 +124,12 @@ public class CameraBowl : MonoBehaviour
 
         if (cameraMultiTarget.PaddingDown >= PaddingMax) MovePadding = 2;
         else if (cameraMultiTarget.PaddingDown <= PaddingMin) MovePadding = 1;
+    }
+
+    public void DiceOnBowl()
+    {
+        PaddingMin = 5f;
+        PaddingMax = 10f;
+        DiffPaddingMax = 0.005f;
     }
 }

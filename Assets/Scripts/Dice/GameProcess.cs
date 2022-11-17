@@ -24,8 +24,11 @@ public class GameProcess : MonoBehaviour
     public int DiceCount = 5;
     public bool IsDroping = true;
 
+    public List<GameObject> IsSleepingDices = new List<GameObject>();
+    public int AllDiceSleep = 0;
+
     private List<PosDice> PosDices = new List<PosDice>();
-    private List<GameObject> CameraDices = new List<GameObject>();
+    private List<GameObject> OnBowlDices = new List<GameObject>();
     private List<GameObject> Dices = new List<GameObject>();
 
     private void Awake()
@@ -38,7 +41,6 @@ public class GameProcess : MonoBehaviour
 
     void Start()
     {
-        // Time.timeScale = 0.25f;
         InitSetDice();
         RotateYDice();
     }
@@ -47,11 +49,17 @@ public class GameProcess : MonoBehaviour
     {
         while (true)
         {
+            if (this == null) return;
             if (IsDroping == false) break;
 
             transform.Rotate(new Vector3(0, 30 * Time.deltaTime, 0));
             await Task.Delay(100);
         }
+    }
+
+    public void InitSetCameraObject(GameObject[] Objects)
+    {
+        cameraMultiTarget.SetTargets(Objects);
     }
 
     public void InitSetDice()
@@ -70,7 +78,7 @@ public class GameProcess : MonoBehaviour
 
         PosDices = new List<PosDice>();
         Dices = new List<GameObject>();
-        cameraMultiTarget.SetTargets(Dices.ToArray());
+        InitSetCameraObject(Dices.ToArray());
     }
 
     public void SetDices()
@@ -81,21 +89,24 @@ public class GameProcess : MonoBehaviour
             Quaternion InitQ = Quaternion.Euler(0, 0, Random.Range(-180f, 180f));
 
             GameObject DiceObject = Instantiate(InitDice, InitPos, InitQ);
+            DiceObject.name = $"Dice{i}";
             Rigidbody Rigidbody = DiceObject.GetComponent<Rigidbody>();
+            if (Type != 0) Rigidbody.drag = 0;
             Rigidbody.angularVelocity = new Vector3(getRandomPower(), getRandomPower(), getRandomPower());
-             
+            Rigidbody.AddForce(new Vector3(0, -15, 0), ForceMode.Impulse);
+
             DiceObject.SetActive(true);
             DiceObject.transform.SetParent(transform);
             Dices.Add(DiceObject);
         }
 
-        CameraDices = Dices;
-        cameraMultiTarget.SetTargets(CameraDices.ToArray());
+        OnBowlDices = Dices;
+        InitSetCameraObject(Dices.ToArray());
     }
 
     private float getRandomPower()
     {
-        float power = Type == 0 ? 0.5f : 2.5f;
+        float power = Type == 0 ? 0.5f : 2f;
         return Random.Range(-power, power);
     }
 
@@ -139,9 +150,35 @@ public class GameProcess : MonoBehaviour
         return false;
     }
 
-    public void RemoveTargetFromCamera(GameObject TargetObject)
+    public void RemoveTarget(GameObject TargetObject)
     {
-        CameraDices.Remove(TargetObject);
-        cameraMultiTarget.SetTargets(CameraDices.ToArray());
+        OnBowlDices.Remove(TargetObject);
+    }
+
+    public async void AddSleepTarget(GameObject TargetObject)
+    {
+        if (IsSleepingDices.Contains(TargetObject)) return;
+        IsSleepingDices.Add(TargetObject);
+
+        if (IsSleepingDices.Count == OnBowlDices.Count)
+        {
+            AllDiceSleep = 1;
+            await Task.Delay(1500);
+            if (AllDiceSleep == 1)
+            {
+                GameStart.instance.WaitType = 4;
+            }
+        }
+    }
+
+    public void InitCamera()
+    {
+        cameraMultiTarget.Pitch = 0;
+        cameraMultiTarget.Roll = 0;
+        cameraMultiTarget.Yaw = 0;
+        cameraMultiTarget.PaddingDown = 5;
+        cameraMultiTarget.PaddingLeft = 5;
+        cameraMultiTarget.PaddingRight = 5;
+        cameraMultiTarget.PaddingUp = 5;
     }
 }

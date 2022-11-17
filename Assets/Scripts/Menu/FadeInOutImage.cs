@@ -19,7 +19,7 @@ public class FadeInOutImage : MonoBehaviour
 
     async void Start()
     {
-        await FadeInOut(true, 0.005f, 20);
+        await FadeInOut(true, 0.005f, 50);
     }
 
     public async Task FadeInOut(bool IsIn, float ChangeValue, int Delay)
@@ -27,7 +27,7 @@ public class FadeInOutImage : MonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             Color.a += IsIn == true ? -ChangeValue : ChangeValue;
-            Image.color = Color;
+            if (this != null) Image.color = Color;
 
             await Task.Delay(Delay);
         }

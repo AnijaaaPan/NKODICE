@@ -42,6 +42,19 @@ public class MoveNoises : MonoBehaviour
         }
     }
 
+    public void VisibleAllNoise(bool Visible=true)
+    {
+        for (int i = 1; i <= NoiseCount; i++)
+        {
+            GameObject NoiseObject = transform.GetChild(i).gameObject;
+            if (NoiseObject == null) return;
+
+            LineRenderer LineRenderer = NoiseObject.GetComponent<LineRenderer>();
+            float ColorAlpha = Visible == true ? Random.Range(0.1f, 0.2f) : 0;
+            LineRenderer.colorGradient = CreateColor(ColorAlpha);
+        }
+    }
+
     private float GetRandomYPos()
     {
         return Random.Range(-540f, 540f);

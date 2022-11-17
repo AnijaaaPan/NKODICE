@@ -25,16 +25,7 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        if (ShutOut == true)
-        {
-            initLeftX += 5000 * Time.deltaTime;
-            initRightX -= 5000 * Time.deltaTime;
-            if (-700 <= initLeftX || initRightX <= 700) return;
-
-            Left.localPosition = new Vector3(initLeftX, 100, 0);
-            Right.localPosition = new Vector3(initRightX, -100, 0);
-        };
-
+        if (ShutOut == true) return;
         if (!Input.GetKeyDown(KeyCode.Escape)) return ;
 
         BackScene();
@@ -44,27 +35,25 @@ public class BackToTitle : MonoBehaviour, IPointerClickHandler
     {
         ShutOut = true;
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 20; i++)
         {
-            OptionZoomOut(i * -3, 1 - i * 0.1f);
-            await Task.Delay(20);
-        }
+            OptionZoomOut(i * -1.5f, 1 - i * 0.05f);
 
-        while(true)
-        {
-            if (-725 <= initLeftX || initRightX <= 725)
-            {
-                await Task.Delay(250);
-                ShutOut = false;
-                SceneManager.LoadSceneAsync("Title");
-                break;
-            };
+            initLeftX += 90;
+            initRightX -= 90;
+
+            Left.localPosition = new Vector3(initLeftX, 100, 0);
+            Right.localPosition = new Vector3(initRightX, -100, 0);
 
             await Task.Delay(10);
         }
+
+        await Task.Delay(250);
+        ShutOut = false;
+        SceneManager.LoadSceneAsync("Title");
     }
 
-    private void OptionZoomOut(int positionZ, float colorAlpha)
+    private void OptionZoomOut(float positionZ, float colorAlpha)
     {
         OptionTransform.localPosition = new Vector3(0, 0, positionZ);
         OptionCanvas.alpha = colorAlpha;

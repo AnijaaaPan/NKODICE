@@ -26,6 +26,8 @@ public class Noise : MonoBehaviour
     {
         while (true)
         {
+            if (RectTransform == null) return;
+
             float PosY = RectTransform.localPosition.y;
             if (PosY <= -540f || 540f <= PosY)
             {

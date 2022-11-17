@@ -26,6 +26,7 @@ public class ClickQuality : MonoBehaviour, IPointerClickHandler
 
             EnableDisableText(PlayerData.Quality, true);
             PlayerData.Quality = Type;
+            UpdateResolution();
             EnableDisableText(Type);
 
             Json.instance.Save(PlayerData);
@@ -38,5 +39,16 @@ public class ClickQuality : MonoBehaviour, IPointerClickHandler
 
         TextMeshProUGUI Text = TextMeshProUGUIs[index - 1];
         Text.color = new Color(ColorValue, ColorValue, ColorValue);
+    }
+
+    private void UpdateResolution()
+    {
+        if (Type == 1) {
+            Screen.SetResolution(1920, 1080, false);
+        } else if (Type == 2) {
+            Screen.SetResolution(2560, 1440, false);
+        } else {
+            Screen.SetResolution(3840, 2160, false);
+        }
     }
 }

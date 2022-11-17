@@ -35,27 +35,17 @@ public class CameraDice : MonoBehaviour
 
     async void Start()
     {
-        InitCamera();
         InitCameraDice();
 
         while (true)
         {
+            if (cameraMultiTarget == null) return;
+
             UpdatePitch();
             UpdateRoll();
             UpdatePadding();
             await Task.Delay(IntervalTime);
         }
-    }
-    
-    public void InitCamera()
-    {
-        cameraMultiTarget.Pitch = 0;
-        cameraMultiTarget.Roll = 0;
-        cameraMultiTarget.Yaw = 0;
-        cameraMultiTarget.PaddingDown = 0;
-        cameraMultiTarget.PaddingLeft = 0;
-        cameraMultiTarget.PaddingRight = 0;
-        cameraMultiTarget.PaddingUp = 0;
     }
 
     public void InitCameraDice()
@@ -70,6 +60,7 @@ public class CameraDice : MonoBehaviour
 
         cameraMultiTarget.Pitch = InitPitch;
         cameraMultiTarget.Roll = InitRoll;
+        cameraMultiTarget.Yaw = 0;
         cameraMultiTarget.PaddingDown = InitPadding;
         cameraMultiTarget.PaddingLeft = InitPadding;
         cameraMultiTarget.PaddingRight = InitPadding;

@@ -59,6 +59,7 @@
     <Compile Include="Assets\CameraMultiTarget\Example\ExampleTargetBehaviour.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Initialize.cs" />
+    <Compile Include="Assets\Scripts\Json.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Menu\OnHoverMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -71,24 +72,34 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\CameraMultiTarget\Example\ExampleGameController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Noise\MoveNoises.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\CameraMultiTarget\Library\PositionAndRotation.cs" />
     <Compile Include="Assets\Scripts\Menu\UpDown.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\General\LookToMainCamera.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Dice\GameStart.cs" />
+    <Compile Include="Assets\Scripts\Noise\Noise.cs" />
     <Compile Include="Assets\Scripts\General\CameraFilter.cs" />
+    <Compile Include="Assets\Scripts\General\GlobalCoroutine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\UI\AnimationScroll.cs" />
+    <Compile Include="Assets\Scripts\Menu\ClickGameSpeed.cs" />
+    <Compile Include="Assets\Scripts\UI\CountFlash.cs" />
     <Compile Include="Assets\Scripts\Menu\RandomString.cs" />
     <Compile Include="Assets\Scripts\Dice\Dice.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Menu\FadeInOutImage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\Scripts\UI\NudgeMove.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\CameraMultiTarget\Library\ProjectionHits.cs" />
     <Compile Include="Assets\CameraMultiTarget\Library\CameraMultiTarget.cs" />
+    <Compile Include="Assets\Scripts\Menu\ClickQuality.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -109,12 +120,32 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Option\OnHoverEscapeImage.cs" />
-    <Compile Include="Assets\Scripts\Noise\Noise.cs" />
-    <Compile Include="Assets\Scripts\Noise\MoveNoises.cs" />
-    <Compile Include="Assets\Scripts\Json.cs" />
-    <Compile Include="Assets\Scripts\Menu\ClickQuality.cs" />
-    <Compile Include="Assets\Scripts\Menu\ClickGameSpeed.cs" />
-    <Compile Include="Assets\Scripts\Dice\GameStart.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\ActivateCamOnPlay.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Anywhere Door\TagChanger.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerLookAt.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\DualTarget\PointAtAimTarget.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\PlayerMovePhysics.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\MixingCameraBlend.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\SpawnInCircle.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\PlayerMoveOnSphere.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Trigger volumes\GenericTrigger.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovementNoCamera.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\CameraMagnets\CameraMagnetProperty.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Scripting\ScriptingExample.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\3rdPersonWithAimMode\ActivateOnKeypress.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\DualTarget\MoveAimTarget.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\ExampleHelpWindow.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovement2D.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovement.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\InvokeEventFromInspector.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\PlayerMove.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\CameraMagnets\CameraMagnetTargetController.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Shared\Scripts\ActivateCameraWithDistance.cs" />
+    <Compile Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Dice\ScaneDice.cs" />
+    <Compile Include="Assets\Scripts\Dice\GameScore.cs" />
+    <Compile Include="Assets\Scripts\Dice\WordAnimation.cs" />
+    <Compile Include="Assets\Scripts\General\Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -129,6 +160,7 @@
     <None Include="Assets\Materials\Camera Effect\MonoTone\monoTone.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Samples\Cinemachine\2.6.17\Cinemachine Example Scenes\Scenes\Anywhere Door\ScreenCutoutShader.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
@@ -735,8 +767,18 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="AimingRig.csproj">
+      <Project>{F15A91A3-1524-FE04-63C5-A67BE6567ABF}</Project>
+      <Name>AimingRig</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

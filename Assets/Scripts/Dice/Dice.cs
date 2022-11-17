@@ -4,22 +4,27 @@ using System.Threading.Tasks;
 public class Dice : MonoBehaviour
 {
     public GameObject Bowl;
+    private Rigidbody Rigidbody;
 
     void Start()
     {
-        ChangeDiceLayer();
+        Rigidbody = GetComponent<Rigidbody>();
+        UpdateDiceInfo();
     }
 
-    private async void ChangeDiceLayer()
+    private async void UpdateDiceInfo()
     {
         while (true)
         {
+            if (this == null) return;
+
             if (IsGetDistance()) {
                 gameObject.layer = 10;
-                GameProcess.instance.RemoveTargetFromCamera(gameObject);
+                GameProcess.instance.RemoveTarget(gameObject);
                 break;
             }
 
+            if (Rigidbody.IsSleeping()) GameProcess.instance.AddSleepTarget(gameObject);
             await Task.Delay(100);
         }
     }
@@ -27,13 +32,25 @@ public class Dice : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != Bowl) return;
+        Sound.instance.SoundHitToBowl();
 
-        if (GameProcess.instance.Type == 0)
-        {
+        if (GameProcess.instance.Type == 0) {
             GameProcess.instance.InitSetDice();
             CameraDice.instance.InitCameraDice();
-        } else {
+
+        } else if (GameProcess.instance.IsDroping == true) {
             GameProcess.instance.IsDroping = false;
+            GameStart.instance.CameraDice.enabled = false;
+            GameStart.instance.CameraBowl.enabled = true;
+            GameStart.instance.WaitType = 3;
+            GameStart.instance.IsClick = false;
+            if (GameStart.instance.RemainNudge != 0)
+            {
+                GameStart.instance.RemainNudgeText.color = new Color(1, 1, 1);
+            }
+            CameraBowl.instance.DiceOnBowl();
+            CameraBowl.instance.InitCameraBowl();
+            GameProcess.instance.InitSetCameraObject(GameStart.instance.BowlObject);
         }
     }
 

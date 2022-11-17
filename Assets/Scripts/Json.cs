@@ -40,7 +40,49 @@ public class Json : MonoBehaviour
             player.WorstScore = 0;
             player.Ochinchin = 0;
         };
+        UpdateResolution(player.Quality);
+        UpdateTimeScale(player.Speed);
         Save(player);
+    }
+
+    public void UpdateTimeScale(int SpeedType)
+    {
+        if (SpeedType == 1)
+        {
+            Time.timeScale = 0.5f;
+        }
+        else if (SpeedType == 2)
+        {
+            Time.timeScale = 0.75f;
+        }
+        else if (SpeedType == 3)
+        {
+            Time.timeScale = 1f;
+        }
+        else if (SpeedType == 4)
+        {
+            Time.timeScale = 1.25f;
+        }
+        else
+        {
+            Time.timeScale = 1.5f;
+        }
+    }
+
+    private void UpdateResolution(int QualityType)
+    {
+        if (QualityType == 1)
+        {
+            Screen.SetResolution(1920, 1080, false);
+        }
+        else if (QualityType == 2)
+        {
+            Screen.SetResolution(2560, 1440, false);
+        }
+        else
+        {
+            Screen.SetResolution(3840, 2160, false);
+        }
     }
 
     public PlayerData Load()
