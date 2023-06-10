@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
-    static public GameStart instance;
+    public static GameStart instance;
 
     public CameraFilter MonoFilter;
     public CameraMultiTarget cameraMultiTarget;
@@ -75,6 +75,7 @@ public class GameStart : MonoBehaviour
             GameProcess.instance.IsSleepingDices = new List<GameObject>();
             GameProcess.instance.AllDiceSleep = 0;
             Sound.instance.SoundNudge();
+            CinemachineImpulseSource.GenerateImpulse();
             UpdateRemainNudgeCount(0);
         }
 
@@ -117,11 +118,11 @@ public class GameStart : MonoBehaviour
         {
             NextRoundTime += Time.unscaledDeltaTime * 3.5f;
             BackToTitleCanvasGroup.alpha = Mathf.Sin(NextRoundTime) + 1f;
+
             if (Input.GetMouseButton(0))
             {
                 SceneManager.LoadSceneAsync("Title");
             }
-            SceneManager.LoadSceneAsync("Title");
         }
     }
 
@@ -137,7 +138,7 @@ public class GameStart : MonoBehaviour
         }
     }
 
-    public async void InitGame(int Type, bool IsNextRound=false)
+    public async void InitGame(int Type, bool IsNextRound = false)
     {
         if (IsNextRound == true)
         {
@@ -213,7 +214,7 @@ public class GameStart : MonoBehaviour
         return Mathf.Sin(time) * 0.5f + 0.5f;
     }
 
-    public async void UpdateRemainRollCount(int UpdateType=0)
+    public async void UpdateRemainRollCount(int UpdateType = 0)
     {
         RemainRollText.text = RemainRound.ToString();
 
@@ -227,7 +228,9 @@ public class GameStart : MonoBehaviour
             }
             RemainRollText.alpha = 1;
 
-        } else if (UpdateType == 1) {
+        }
+        else if (UpdateType == 1)
+        {
             RemainRound += 1;
             RemainRollText.text = "+1";
             await Task.Delay(500);

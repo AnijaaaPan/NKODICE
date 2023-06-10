@@ -32,13 +32,14 @@ public class Dice : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != Bowl) return;
-        Sound.instance.SoundHitToBowl();
 
         if (GameStart.instance.GameType == 0) {
             GameProcess.instance.InitSetDice();
             CameraDice.instance.InitCameraDice();
 
-        } else if (GameProcess.instance.IsDroping == true) {
+        } else if (GameProcess.instance.IsDroping == true)
+        {
+            Sound.instance.SoundHitToBowl();
             GameProcess.instance.IsDroping = false;
             GameStart.instance.CameraDice.enabled = false;
             GameStart.instance.CameraBowl.enabled = true;

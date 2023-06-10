@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class CameraBowl : MonoBehaviour
 {
-    static public CameraBowl instance;
+    public static CameraBowl instance;
 
     public CameraMultiTarget cameraMultiTarget;
 

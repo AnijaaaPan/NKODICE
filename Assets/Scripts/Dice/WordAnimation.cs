@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public class WordAnimation : MonoBehaviour
 {
-    static public WordAnimation instance;
+    public static WordAnimation instance;
 
     public GameObject IsCombo;
     public GameObject IsComboButton;
@@ -38,7 +38,7 @@ public class WordAnimation : MonoBehaviour
         }
     }
 
-    private async void Start()
+    private void Start()
     {
         OchinchinRectTransform = OchinchinObject.GetComponent<RectTransform>();
         OchinchinText = OchinchinObject.GetComponent<TextMeshProUGUI>();
@@ -48,17 +48,6 @@ public class WordAnimation : MonoBehaviour
         ChinkoText = ChinkoObject.GetComponent<TextMeshProUGUI>();
         UnkoText = UnkoObject.GetComponent<TextMeshProUGUI>();
         UnchiText = UnchiObject.GetComponent<TextMeshProUGUI>();
-
-        // await Task.Delay(100);
-        // MoveNoises.instance.VisibleAllNoise();
-        // await AnimationText(UnchiObject, UnchiText, 1);
-        // await AnimationText(UnkoObject, UnkoText, 0);
-        // await AnimationText(ChinkoObject, ChinkoText, 1);
-        // await AnimationText(MankoObject, MankoText, 0);
-        // await AnimationText(OmankoObject, OmankoText, 1);
-        // await AnimationText(ChinchinObject, ChinchinText, 0);
-        // await AnimationText(OchinchinObject, OchinchinText, 1, true);
-        // MoveNoises.instance.VisibleAllNoise(false);
     }
 
     public async void RunAnimation()
@@ -107,13 +96,13 @@ public class WordAnimation : MonoBehaviour
     private async Task ComboZoomOut(TextMeshProUGUI TextMeshProUGUI, int Combo, bool IsOchinchin = false)
     {
         bool IsChange = false;
-        IsCombo.SetActive(Combo < 1);
+        IsCombo.SetActive(Combo > 1);
         if (IsOchinchin == false)
         {
-            IsComboButton.SetActive(Combo < 1);
+            IsComboButton.SetActive(Combo > 1);
         }
 
-        TextMeshProUGUI.color = Combo < 1 ? Color.black : Color.white;
+        TextMeshProUGUI.color = Combo > 1 ? Color.black : Color.white;
         TextMeshProUGUI.fontSize = 600;
 
         string ComboText = $"COMBO {Combo}";
@@ -132,7 +121,7 @@ public class WordAnimation : MonoBehaviour
         }
     }
 
-    public async Task AnimationText(GameObject AnimeObject, TextMeshProUGUI Text, int Combo, bool IsOchinchin=false)
+    public async Task AnimationText(GameObject AnimeObject, TextMeshProUGUI Text, int Combo, bool IsOchinchin = false)
     {
         AnimeObject.SetActive(true);
         if (IsFirstrole == true)
@@ -145,14 +134,14 @@ public class WordAnimation : MonoBehaviour
         GameStart.instance.UpdateRemainNudgeCount(1);
         if (IsOchinchin == true)
         {
-            await IsOchinchinAnime(Text);
             Sound.instance.SoundOchinchin();
-        } else
+            await IsOchinchinAnime(Text);
+        }
+        else
         {
             Sound.instance.SoundIyoh();
         }
 
-        MoveNoises.instance.VisibleAllNoise(true);
         await ComboZoomOut(Text, Combo, IsOchinchin);
 
         await Task.Delay(2000);

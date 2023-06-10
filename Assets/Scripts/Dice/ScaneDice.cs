@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class ScaneDice : MonoBehaviour
 {
-    static public ScaneDice instance;
+    public static ScaneDice instance;
     public bool IsScaning = false;
 
     private void Awake()

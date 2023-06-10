@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public class FadeInOutImage : MonoBehaviour
 {
-    static public FadeInOutImage instance;
+    public static FadeInOutImage instance;
     public Image Image;
 
     private Color Color = Color.black;

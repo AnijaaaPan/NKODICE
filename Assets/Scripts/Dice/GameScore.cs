@@ -54,7 +54,7 @@ public class RoundDiceInfo
 
 public class GameScore : MonoBehaviour
 {
-    static public GameScore instance;
+    public static GameScore instance;
 
     public int AllScore;
     public int UScore;

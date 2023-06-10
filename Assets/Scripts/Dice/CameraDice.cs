@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class CameraDice : MonoBehaviour
 {
-    static public CameraDice instance;
+    public static CameraDice instance;
 
     public CameraMultiTarget cameraMultiTarget;
 

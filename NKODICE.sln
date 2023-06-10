@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimingRig", "AimingRig.csproj", "{F15A91A3-1524-FE04-63C5-A67BE6567ABF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{2D1BF21B-E4C5-30D2-BAC6-59CC1DDE8C8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{F15A91A3-1524-FE04-63C5-A67BE6567ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F15A91A3-1524-FE04-63C5-A67BE6567ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F15A91A3-1524-FE04-63C5-A67BE6567ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1BF21B-E4C5-30D2-BAC6-59CC1DDE8C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1BF21B-E4C5-30D2-BAC6-59CC1DDE8C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1BF21B-E4C5-30D2-BAC6-59CC1DDE8C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1BF21B-E4C5-30D2-BAC6-59CC1DDE8C8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class Sound : MonoBehaviour
 {
-    static public Sound instance;
+    public static Sound instance;
 
     public AudioSource TitleSource;
     public AudioSource PlayGame;
@@ -32,11 +32,11 @@ public class Sound : MonoBehaviour
 
     public async void UpdateBGM(bool IsPLaying)
     {
-        TitleSource.volume = 0;
+        if (TitleSource != null) TitleSource.volume = 0;
         for (int i = 0; i < 100; i++)
         {
-            PlayGameKugumori.volume += IsPLaying == false ? 0.01f : -0.01f;
-            PlayGame.volume += IsPLaying == true ? 0.01f : -0.01f;
+            if (PlayGameKugumori != null) PlayGameKugumori.volume += IsPLaying == false ? 0.01f : -0.01f;
+            if (PlayGame != null) PlayGame.volume += IsPLaying == true ? 0.01f : -0.01f;
             await Task.Delay(10);
         }
     }

@@ -15,7 +15,7 @@ public class PlayerData
 
 public class Json : MonoBehaviour
 {
-    static public Json instance;
+    public static Json instance;
     string datapath;
 
     private void Awake()

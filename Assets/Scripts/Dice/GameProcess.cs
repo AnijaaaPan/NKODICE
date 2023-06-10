@@ -15,7 +15,7 @@ public class PosDice
 
 public class GameProcess : MonoBehaviour
 {
-    static public GameProcess instance;
+    public static GameProcess instance;
 
     public CameraMultiTarget cameraMultiTarget;
     public GameObject InitDice;
@@ -114,7 +114,7 @@ public class GameProcess : MonoBehaviour
 
         while (true)
         {
-            Vector3 SpawnPos = 3f * Random.insideUnitSphere + InitDice.transform.position;
+            Vector3 SpawnPos = (2.5f + GameStart.instance.DiceCount * 0.125f) * Random.insideUnitSphere + InitDice.transform.position;
 
             float RandomX = Random.Range(SpawnPos.x, SpawnPos.x);
             float RandomY = Random.Range(SpawnPos.y, SpawnPos.y);

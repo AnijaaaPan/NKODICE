@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public class MoveNoises : MonoBehaviour
 {
-    static public MoveNoises instance;
+    public static MoveNoises instance;
 
     public GameObject InitNoise;
     public int NoiseCount;
@@ -42,7 +42,7 @@ public class MoveNoises : MonoBehaviour
         }
     }
 
-    public void VisibleAllNoise(bool Visible=true)
+    public void VisibleAllNoise(bool Visible = true)
     {
         for (int i = 1; i <= NoiseCount; i++)
         {
@@ -66,7 +66,7 @@ public class MoveNoises : MonoBehaviour
         int RandomIntervalTime = Random.Range(10, 25);
         float RandomColorAlpha = Random.Range(0.1f, 0.2f);
 
-        float[] ColorAlphaList = new float[11] { 
+        float[] ColorAlphaList = new float[11] {
             0, RandomColorAlpha * 1, RandomColorAlpha * 2, RandomColorAlpha * 3, RandomColorAlpha * 4, RandomColorAlpha * 5,
                RandomColorAlpha * 4, RandomColorAlpha * 3, RandomColorAlpha * 2, RandomColorAlpha * 1, 0
         };
