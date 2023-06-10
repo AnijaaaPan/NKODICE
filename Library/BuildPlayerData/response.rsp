@@ -9,7 +9,6 @@
 -a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PlayerScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll"
 -a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PlayerScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll"
 -a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PlayerScriptAssemblies\UnityEngine.UI.dll"
--a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PlayerScriptAssemblies\AimingRig.dll"
 -a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PlayerScriptAssemblies\Unity.Mathematics.dll"
 -a="C:\Users\Anijaaa\UnityProject\NKODICE\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll"
 -s="C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine"

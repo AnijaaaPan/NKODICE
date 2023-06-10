@@ -1,11 +1,10 @@
 ﻿using System.IO;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerData
 {
-    public bool FirstTime;
     public int Quality; // 1: Low, 2:Mid, 3: High
     public int Speed; // 1: 0.5倍速, 2: 0.75倍速, 3: 1倍速, 4: 1.25倍速, 5: 1.5倍速
     public int BestScore;
@@ -28,18 +27,32 @@ public class Json : MonoBehaviour
         }
     }
 
+    private void InitJsonFile()
+    {
+        string directoryPath = Application.dataPath + "/Json";
+        if (Directory.Exists(directoryPath)) return;
+        Directory.CreateDirectory(directoryPath);
+
+        if (File.Exists(datapath)) return;
+        FileStream fs = File.Create(datapath);
+        fs.Close();
+
+        PlayerData player = new PlayerData
+        {
+            Quality = 1,
+            Speed = 3,
+            BestScore = 0,
+            WorstScore = 0,
+            Ochinchin = 0
+        };
+        Save(player);
+    }
+
     public void Start()
     {
+        InitJsonFile();
+
         PlayerData player = Load();
-        if (player.FirstTime == false)
-        {
-            player.FirstTime = true;
-            player.Quality = 1;
-            player.Speed = 3;
-            player.BestScore = 0;
-            player.WorstScore = 0;
-            player.Ochinchin = 0;
-        };
         UpdateResolution(player.Quality);
         UpdateTimeScale(player.Speed);
         Save(player);
@@ -73,21 +86,22 @@ public class Json : MonoBehaviour
     {
         if (QualityType == 1)
         {
-            Screen.SetResolution(1920, 1080, false);
+            Screen.SetResolution(1920, 1080, true, 60);
         }
         else if (QualityType == 2)
         {
-            Screen.SetResolution(2560, 1440, false);
+            Screen.SetResolution(2560, 1440, true, 60);
         }
         else
         {
-            Screen.SetResolution(3840, 2160, false);
+            Screen.SetResolution(3840, 2160, true, 60);
         }
     }
 
     public PlayerData Load()
     {
-        StreamReader reader = new StreamReader(datapath);
+        FileStream fs = new FileStream(datapath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+        StreamReader reader = new StreamReader(fs);
         string datastr = reader.ReadToEnd();
         reader.Close();
         return JsonUtility.FromJson<PlayerData>(datastr);
@@ -96,7 +110,8 @@ public class Json : MonoBehaviour
     public void Save(PlayerData player)
     {
         string jsonstr = JsonUtility.ToJson(player, true);
-        StreamWriter writer = new StreamWriter(datapath, false);
+        FileStream fs = new FileStream(datapath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+        StreamWriter writer = new StreamWriter(fs);
         writer.WriteLine(jsonstr);
         writer.Flush();
         writer.Close();

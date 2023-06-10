@@ -1,8 +1,10 @@
 {
-    "FirstTime": true,
     "Quality": 2,
     "Speed": 5,
     "BestScore": 0,
     "WorstScore": 0,
+    "Ochinchin": 0
+}
+
     "Ochinchin": 0
 }
